@@ -1,0 +1,27 @@
+services:
+  mongo:
+    image: mongo:8
+    ports: ["27017:27017"]
+    volumes: [mongo-data:/data/db]
+
+  redis:
+    image: redis:latest
+    ports: ["6379:6379"]
+
+  cassandra:
+    image: cassandra:5
+    ports: ["9042:9042"]
+
+  # Thêm service Neo4j
+  neo4j:
+    image: neo4j:5
+    ports: ["7474:7474", "7687:7687"]
+    environment:
+      NEO4J_AUTH: neo4j/learnneo4j
+    volumes:
+      - neo4j-data:/data
+      - ./import:/var/lib/neo4j/import   # CSV files for LOAD CSV
+
+volumes:
+  mongo-data:
+  neo4j-data:
